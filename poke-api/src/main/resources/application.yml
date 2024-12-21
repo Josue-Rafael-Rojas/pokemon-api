@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pokemon-api
+    username: postgres
+    password: 29529673.jrrc
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+external:
+  api:
+    pokemon:
+      baseUrl: "https://pokeapi.co/api/v2"

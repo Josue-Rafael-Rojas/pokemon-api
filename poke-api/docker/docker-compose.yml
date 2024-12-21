@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:14-alpine
+    restart: always
+    shm_size: 128mb
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: secret_key
+      POSTGRES_USER: admin-user
+      POSTGRES_DB: pokemon_db
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "admin-user", "-d", "pokemon_db"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+#  pokemon_backend:
+#    build:
+#      context: .
+#      dockerfile: ../Dockerfile
+#    mem_reservation: 512m
+#    container_name: pokemon_backend
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/pokemon_db
+#      - SPRING_DATASOURCE_USERNAME=admin-user
+#      - SPRING_DATASOURCE_PASSWORD=secret_key
+#    restart: always
+#    depends_on:
+#      db:
+#        condition: service_healthy
